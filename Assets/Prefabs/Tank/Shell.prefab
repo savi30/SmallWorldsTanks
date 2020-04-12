@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  explosionParticles: {fileID: 198000014088447588, guid: f863881ac6a570f47b0f4af2bb283d94,
+  explosionParticles: {fileID: 1000010955886280, guid: f863881ac6a570f47b0f4af2bb283d94,
     type: 3}
   maxDamage: 50
   explosionForce: 1000
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0.1
+  m_SendInterval: 0
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0

@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class ShellExplosion : NetworkBehaviour  
 {
     public string playerTag = "Player";
-    public ParticleSystem explosionParticles;
+    public GameObject explosionParticles;
 
     public float maxDamage = 50f;
     public float explosionForce = 1000f;
@@ -39,10 +39,17 @@ public class ShellExplosion : NetworkBehaviour
                 targetHealth.ApplyDamage(damage);
             }
         }
-        ParticleSystem explosionInstance = Instantiate(explosionParticles, transform.position, transform.rotation);
-        explosionInstance.Play();
-        Destroy(explosionInstance.gameObject, explosionParticles.main.duration);
+        Cmd_PlayExplosion();
         Destroy(gameObject);
+    }
+
+    [Command]
+    private void Cmd_PlayExplosion()
+    {
+        GameObject explosionInstance = Instantiate(explosionParticles, transform.position, transform.rotation);
+        explosionInstance.GetComponent<ParticleSystem>().Play();
+        Destroy(explosionInstance.gameObject, 1f);
+        NetworkServer.Spawn(explosionInstance);
     }
 
     private float ComputeDamage(Vector3 targetPosition)

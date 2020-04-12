@@ -5,6 +5,9 @@ using UnityEngine.Networking;
 
 public class TankHealth : NetworkBehaviour
 {
+    [SyncVar]
+    public float health = 100f;
+
     [Client]
     public void ApplyDamage(float damage)
     {

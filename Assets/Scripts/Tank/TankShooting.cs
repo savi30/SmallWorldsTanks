@@ -14,6 +14,7 @@ public class TankShooting : NetworkBehaviour
     private string fireButton = "Jump";
     private float currentLaunchForce;
     private float chargeSpeed;
+    [SyncVar]
     private bool fired;
 
     private void OnEnable()
@@ -54,7 +55,7 @@ public class TankShooting : NetworkBehaviour
         fired = true;
         GameObject shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation);
         shellInstance.GetComponent<Rigidbody>().velocity = currentLaunchForce * fireTransform.forward;
-        NetworkServer.Spawn(shellInstance);
         currentLaunchForce = minLaunchForce;
+        NetworkServer.Spawn(shellInstance);
     }
 }
