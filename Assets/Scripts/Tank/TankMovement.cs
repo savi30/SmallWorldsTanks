@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class TankMovement : MonoBehaviour
 {
-
     public float speed = 10f;
     public float mouseSensitivity = 10f;
 

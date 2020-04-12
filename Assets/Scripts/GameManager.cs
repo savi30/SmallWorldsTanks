@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Material[] playerMaterials;
 
-    // Update is called once per frame
-    void Update()
+    private static Dictionary<string, TankManager> tanks = new Dictionary<string, TankManager>();
+
+    public static void registerPlayer(string netID, TankManager tankManager)
     {
-        
+        string playerID;
     }
 }

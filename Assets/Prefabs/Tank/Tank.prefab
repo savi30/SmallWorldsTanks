@@ -177,9 +177,10 @@ GameObject:
   - component: {fileID: 3350750034808773285}
   - component: {fileID: 5274639666459763460}
   - component: {fileID: 7170029236795548889}
-  - component: {fileID: 3475250306280183140}
   - component: {fileID: 6087587618242745569}
+  - component: {fileID: 3475250306280183140}
   - component: {fileID: 3805086110670930216}
+  - component: {fileID: -6617225162399129103}
   m_Layer: 9
   m_Name: Tank
   m_TagString: Player
@@ -299,22 +300,6 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &3475250306280183140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013459266845585946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8596607183ad784bbb9442a94c6c706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  componentsToDisable:
-  - {fileID: 5274639666459763460}
-  - {fileID: 982323309}
-  - {fileID: 982323308}
 --- !u!114 &6087587618242745569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +322,24 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 10
   m_InterpolateMovement: 1
+--- !u!114 &3475250306280183140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013459266845585946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8596607183ad784bbb9442a94c6c706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  componentsToDisable:
+  - {fileID: 5274639666459763460}
+  - {fileID: 982323309}
+  - {fileID: 982323308}
+  - {fileID: 3805086110670930216}
+  - {fileID: -6617225162399129103}
 --- !u!114 &3805086110670930216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,11 +352,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5900b670182414887e01602ff7de70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shell: {fileID: 2722589189244163016, guid: 6b12ebd61134f424d8ab383638ce4b50, type: 3}
+  shell: {fileID: 6356270540199077820, guid: 6b12ebd61134f424d8ab383638ce4b50, type: 3}
   fireTransform: {fileID: 6729376198360978380}
   minLaunchForce: 15
   maxLaunchForce: 30
   maxChargeTime: 0.75
+--- !u!114 &-6617225162399129103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013459266845585946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a4b4e6adfdfd94780116ba269d0175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1286888686745872687
 GameObject:
   m_ObjectHideFlags: 0

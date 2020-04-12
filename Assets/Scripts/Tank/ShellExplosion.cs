@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class ShellExplosion : MonoBehaviour
+public class ShellExplosion : NetworkBehaviour  
 {
     public string playerTag = "Player";
     public ParticleSystem explosionParticles;
@@ -22,16 +23,15 @@ public class ShellExplosion : MonoBehaviour
         Collider[] coliders = Physics.OverlapSphere(transform.position, explosionRadius);
         for (int i = 0; i < coliders.Length; i++)
         {
-            if (coliders[i].tag.Equals(playerTag))
+            if (coliders[i].tag == playerTag)
             {
                 Rigidbody target = coliders[i].GetComponent<Rigidbody>();
                 if (!target)
                     continue;
+                
                 target.AddExplosionForce(explosionForce, transform.position, explosionRadius);
-
-
+                
                 TankHealth targetHealth = target.GetComponent<TankHealth>();
-
                 if (!targetHealth)
                     continue;
 

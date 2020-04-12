@@ -581,7 +581,8 @@ MonoBehaviour:
   m_PlayerSpawnMethod: 1
   m_OfflineScene: 
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 6356270540199077820, guid: 6b12ebd61134f424d8ab383638ce4b50, type: 3}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -780,6 +781,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65231c60f66deb5439fcf1241ea4e832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMaterials:
+  - {fileID: 2100000, guid: bb5fd75bede06e440aa913baa76b72b4, type: 2}
+  - {fileID: 2100000, guid: e6a5267b3660e51438bf67c6c1224479, type: 2}
+  - {fileID: 2100000, guid: 973f428c40f8037458ba7ad6d8780660, type: 2}
+  - {fileID: 2100000, guid: 7042e73e8dae97642a21cf74d6b461d5, type: 2}
 --- !u!1001 &1229833265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1134,7 +1140,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2135975728}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.9138036, y: 5.870646, z: 3.7671318}
+  m_LocalPosition: {x: -1.07, y: 2.94, z: 6.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 878977459}

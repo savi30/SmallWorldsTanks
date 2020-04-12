@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class TankShoot : MonoBehaviour
+public class TankShooting : NetworkBehaviour
 {
-    public Rigidbody shell;
+    public GameObject shell;
     public Transform fireTransform;
     public float minLaunchForce = 15f;
     public float maxLaunchForce = 30f;
@@ -30,7 +31,7 @@ public class TankShoot : MonoBehaviour
         if (currentLaunchForce >= maxLaunchForce && !fired)
         {
             currentLaunchForce = maxLaunchForce;
-            Fire();
+            Cmd_Fire();
         }
         else if (Input.GetButtonDown(fireButton))
         {
@@ -43,15 +44,17 @@ public class TankShoot : MonoBehaviour
         }
         else if (Input.GetButtonUp(fireButton) && !fired)
         {
-            Fire();
+            Cmd_Fire();
         }
     }
 
-    void Fire()
+    [Command]
+    void Cmd_Fire()
     {
         fired = true;
-        Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
-        shellInstance.velocity = currentLaunchForce * fireTransform.forward;
+        GameObject shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation);
+        shellInstance.GetComponent<Rigidbody>().velocity = currentLaunchForce * fireTransform.forward;
+        NetworkServer.Spawn(shellInstance);
         currentLaunchForce = minLaunchForce;
     }
 }
