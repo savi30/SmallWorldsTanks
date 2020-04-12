@@ -12,7 +12,6 @@ public class ShellExplosion : MonoBehaviour
     public float maxLifeTime = 2f;
     public float explosionRadius = 5f;
 
-    // Start is called before the first frame update
     void Start()
     {
         Destroy(gameObject, maxLifeTime);
@@ -30,6 +29,14 @@ public class ShellExplosion : MonoBehaviour
                     continue;
                 target.AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
+
+                TankHealth targetHealth = target.GetComponent<TankHealth>();
+
+                if (!targetHealth)
+                    continue;
+
+                float damage = ComputeDamage(target.position);
+                targetHealth.ApplyDamage(damage);
             }
         }
         ParticleSystem explosionInstance = Instantiate(explosionParticles, transform.position, transform.rotation);
@@ -37,7 +44,6 @@ public class ShellExplosion : MonoBehaviour
         Destroy(explosionInstance.gameObject, explosionParticles.main.duration);
         Destroy(gameObject);
     }
-
 
     private float ComputeDamage(Vector3 targetPosition)
     {
