@@ -1,69 +1,79 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Networking;
+using Random = System.Random;
 
-using System;
-using UnityEngine;
+public class TankManager : NetworkBehaviour{
+    [SyncVar] private bool _isDead;
+    private TankMovement _movement;
+    private TankShooting _shooting;
+    private PlayerUI _playerUi;
 
-[Serializable]
-public class TankManager
-{
+    [SyncVar] public float currentHealth;
+    public float maxHealth = 100f;
+    public GameObject instance;
+    public Material[] materials;
 
-    public Material playerMaterial;                             // This is the color this tank will be tinted.
-    [HideInInspector] public int playerNumber;            // This specifies which player this the manager for.
-    [HideInInspector] public string coloredPlayerText;    // A string that represents the player with their number colored to match their tank.
-    [HideInInspector] public GameObject instance;         // A reference to the instance of the tank when it is created.
-    [HideInInspector] public int wins;                    // The number of wins this player has so far.
+    public bool isDead{
+        get{ return _isDead; }
+        protected set{ _isDead = value; }
+    }
 
+    private void Awake(){
+        _movement = gameObject.GetComponent<TankMovement>();
+        _shooting = gameObject.GetComponent<TankShooting>();
+        instance = gameObject;
+        Setup();
+    }
 
-    private TankMovement movement;
-    private TankShooting shooting;                        // Reference to tank's shooting script, used to disable and enable control.
-    private GameObject canvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
+    private void Setup(){
+        isDead = false;
+        currentHealth = maxHealth;
+        AssignMaterial();
+    }
 
-
-    public void Setup()
-    {
-        // Get references to the components.
-        movement = instance.GetComponent<TankMovement>();
-        shooting = instance.GetComponent<TankShooting>();
-        canvasGameObject = instance.GetComponentInChildren<Canvas>().gameObject;
-
-
-        MeshRenderer[] renderers = instance.GetComponentsInChildren<MeshRenderer>();
-
-        // Go through all the renderers...
-        for (int i = 0; i < renderers.Length; i++)
-        {
-            // ... set their material color to the color specific to this tank.
-            renderers[i].material = playerMaterial;
+    private void AssignMaterial(){
+        var random = new Random();
+        var value = random.Next(0, 4);
+        var playerMaterial = materials[value];
+        var renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+        foreach (var rend in renderers){
+            rend.material = playerMaterial;
         }
     }
 
-
-    // Used during the phases of the game where the player shouldn't be able to control their tank.
-    public void DisableControl()
-    {
-        movement.enabled = false;
-        shooting.enabled = false;
-
-        canvasGameObject.SetActive(false);
+    [ClientRpc]
+    public void Rpc_ApplyDamage(float damage){
+        if (isDead)
+            return;
+        currentHealth -= damage;
+        UpdateUI();
+        if (currentHealth <= 0){
+            Die();
+        }
     }
 
-
-    // Used during the phases of the game where the player should be able to control their tank.
-    public void EnableControl()
-    {
-        movement.enabled = true;
-        shooting.enabled = true;
-
-        canvasGameObject.SetActive(true);
+    private void UpdateUI(){
+        if (isLocalPlayer)
+            _playerUi.SetFill(currentHealth);
     }
 
+    private void Die(){
+        isDead = true;
+        DisableControl();
+    }
 
-    // Used at the start of each round to put the tank into it's default state.
-    public void Reset()
-    {
-        instance.SetActive(false);
-        instance.SetActive(true);
+    private void DisableControl(){
+        if (!isLocalPlayer) return;
+        _movement.enabled = false;
+        _shooting.enabled = false;
+    }
+
+    public void EnableControl(){
+        _movement.enabled = true;
+        _shooting.enabled = true;
+    }
+
+    public void SetUI(PlayerUI ui){
+        _playerUi = ui;
     }
 }

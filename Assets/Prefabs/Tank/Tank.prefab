@@ -174,13 +174,13 @@ GameObject:
   - component: {fileID: 1676515232765691307}
   - component: {fileID: 7947468948282659617}
   - component: {fileID: 5865744967710657192}
-  - component: {fileID: 3350750034808773285}
-  - component: {fileID: 5274639666459763460}
   - component: {fileID: 7170029236795548889}
   - component: {fileID: 6087587618242745569}
+  - component: {fileID: 3350750034808773285}
+  - component: {fileID: 5274639666459763460}
   - component: {fileID: 3475250306280183140}
   - component: {fileID: 3805086110670930216}
-  - component: {fileID: -6617225162399129103}
+  - component: {fileID: 3764249015406479875}
   m_Layer: 9
   m_Name: Tank
   m_TagString: Player
@@ -239,34 +239,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &3350750034808773285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013459266845585946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bbafa8049c1db34eb84ebf719d9f2f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attractor: {fileID: 3442214352402144905, guid: d3f02e7089eea174cb105f7c83d82ce2,
-    type: 3}
---- !u!114 &5274639666459763460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013459266845585946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa1b9e87eef3ab94daa72b77c0994092, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  mouseSensitivity: 10
 --- !u!114 &7170029236795548889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,6 +294,34 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 10
   m_InterpolateMovement: 1
+--- !u!114 &3350750034808773285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013459266845585946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bbafa8049c1db34eb84ebf719d9f2f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attractor: {fileID: 3442214352402144905, guid: d3f02e7089eea174cb105f7c83d82ce2,
+    type: 3}
+--- !u!114 &5274639666459763460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013459266845585946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa1b9e87eef3ab94daa72b77c0994092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  mouseSensitivity: 10
 --- !u!114 &3475250306280183140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,12 +334,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8596607183ad784bbb9442a94c6c706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerUIPrefab: {fileID: 3139932759458715167, guid: 12706b070028caa4ea3960799b9bea8d,
+    type: 3}
   componentsToDisable:
   - {fileID: 5274639666459763460}
   - {fileID: 982323309}
   - {fileID: 982323308}
   - {fileID: 3805086110670930216}
-  - {fileID: -6617225162399129103}
+  - {fileID: 3764249015406479875}
 --- !u!114 &3805086110670930216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +359,7 @@ MonoBehaviour:
   minLaunchForce: 15
   maxLaunchForce: 30
   maxChargeTime: 0.75
---- !u!114 &-6617225162399129103
+--- !u!114 &3764249015406479875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -366,9 +368,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013459266845585946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9a4b4e6adfdfd94780116ba269d0175, type: 3}
+  m_Script: {fileID: 11500000, guid: a0a01f4e89347ec4186a77d48573488e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 100
+  instance: {fileID: 0}
+  materials:
+  - {fileID: 2100000, guid: bb5fd75bede06e440aa913baa76b72b4, type: 2}
+  - {fileID: 2100000, guid: e6a5267b3660e51438bf67c6c1224479, type: 2}
+  - {fileID: 2100000, guid: 973f428c40f8037458ba7ad6d8780660, type: 2}
+  - {fileID: 2100000, guid: 7042e73e8dae97642a21cf74d6b461d5, type: 2}
 --- !u!1 &1286888686745872687
 GameObject:
   m_ObjectHideFlags: 0

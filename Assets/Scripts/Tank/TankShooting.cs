@@ -1,61 +1,50 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
-public class TankShooting : NetworkBehaviour
-{
+public class TankShooting : NetworkBehaviour{
     public GameObject shell;
     public Transform fireTransform;
     public float minLaunchForce = 15f;
     public float maxLaunchForce = 30f;
     public float maxChargeTime = 0.75f;
 
-    private string fireButton = "Jump";
-    private float currentLaunchForce;
-    private float chargeSpeed;
-    [SyncVar]
-    private bool fired;
+    private readonly string _fireButton = "Jump";
+    private float _currentLaunchForce;
+    private float _chargeSpeed;
+    private bool _fired;
 
-    private void OnEnable()
-    {
-        currentLaunchForce = minLaunchForce;
+    private void OnEnable(){
+        _currentLaunchForce = minLaunchForce;
     }
 
-    void Start()
-    {
-        chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
+    private void Start(){
+        _chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
     }
 
-    void Update()
-    {
-        if (currentLaunchForce >= maxLaunchForce && !fired)
-        {
-            currentLaunchForce = maxLaunchForce;
-            Cmd_Fire();
+    private void Update(){
+        if (_currentLaunchForce >= maxLaunchForce && !_fired){
+            _currentLaunchForce = maxLaunchForce;
+            CmdFire();
         }
-        else if (Input.GetButtonDown(fireButton))
-        {
-            fired = false;
-            currentLaunchForce = minLaunchForce;
+        else if (Input.GetButtonDown(_fireButton)){
+            _fired = false;
+            _currentLaunchForce = minLaunchForce;
         }
-        else if (Input.GetButton(fireButton) && !fired)
-        {
-            currentLaunchForce += chargeSpeed * Time.deltaTime;
+        else if (Input.GetButton(_fireButton) && !_fired){
+            _currentLaunchForce += _chargeSpeed * Time.deltaTime;
         }
-        else if (Input.GetButtonUp(fireButton) && !fired)
-        {
-            Cmd_Fire();
+        else if (Input.GetButtonUp(_fireButton) && !_fired){
+            CmdFire();
         }
     }
 
     [Command]
-    void Cmd_Fire()
-    {
-        fired = true;
-        GameObject shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation);
-        shellInstance.GetComponent<Rigidbody>().velocity = currentLaunchForce * fireTransform.forward;
-        currentLaunchForce = minLaunchForce;
+    private void CmdFire(){
+        var shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation);
+        shellInstance.GetComponent<Rigidbody>().velocity = _currentLaunchForce * fireTransform.forward;
         NetworkServer.Spawn(shellInstance);
+
+        _fired = true;
+        _currentLaunchForce = minLaunchForce;
     }
 }

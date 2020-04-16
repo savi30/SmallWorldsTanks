@@ -1,15 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
-{
-    public Material[] playerMaterials;
+public class GameManager : MonoBehaviour{
+    private static Dictionary<string, TankManager> _tanks = new Dictionary<string, TankManager>();
 
-    private static Dictionary<string, TankManager> tanks = new Dictionary<string, TankManager>();
+    public static void RegisterPlayer(string netID, TankManager tankManager){
+        _tanks.Add(netID, tankManager);
+    }
 
-    public static void registerPlayer(string netID, TankManager tankManager)
-    {
-        string playerID;
+    public static void DeRegisterPlayer(string netId){
+        _tanks.Remove(netId);
+    }
+
+    public static TankManager GetPlayer(string netId){
+        return _tanks[netId];
     }
 }
