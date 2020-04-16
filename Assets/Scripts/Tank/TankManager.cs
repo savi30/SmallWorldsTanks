@@ -46,15 +46,16 @@ public class TankManager : NetworkBehaviour{
         if (isDead)
             return;
         currentHealth -= damage;
-        UpdateUI();
         if (currentHealth <= 0){
             Die();
         }
+
+        UpdateUI();
     }
 
     private void UpdateUI(){
         if (isLocalPlayer)
-            _playerUi.SetFill(currentHealth);
+            _playerUi.SetFill(currentHealth / 100);
     }
 
     private void Die(){

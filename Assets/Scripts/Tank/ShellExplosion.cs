@@ -26,15 +26,17 @@ public class ShellExplosion : NetworkBehaviour{
             var tankManager = target.GetComponent<TankManager>();
             if (!tankManager)
                 continue;
-            DealDamage(target, tankManager);
+            DealDamage(target.position, tankManager);
         }
 
         Cmd_PlayExplosion();
         Destroy(gameObject);
     }
 
-    private void DealDamage(Rigidbody target, TankManager tankManager){
-        var damage = ComputeDamage(target.position);
+    private void DealDamage(Vector3 position, TankManager tankManager){
+        if (!isServer)
+            return;
+        var damage = ComputeDamage(position);
         tankManager.Rpc_ApplyDamage(damage);
     }
 
