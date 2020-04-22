@@ -22,6 +22,8 @@ public class TankShooting : NetworkBehaviour{
     }
 
     private void Update(){
+        if (PauseMenu.isOn)
+            return;
         if (_currentLaunchForce >= maxLaunchForce && !_fired){
             _currentLaunchForce = maxLaunchForce;
             CmdFire();

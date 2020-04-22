@@ -13,6 +13,8 @@ public class TankMovement : MonoBehaviour{
     }
 
     public void Update(){
+        if (PauseMenu.isOn)
+            return;
         _moveDirection = new Vector3(0, 0, Input.GetAxisRaw("Vertical")).normalized;
         _rotation = new Vector3(0, Input.GetAxisRaw("Mouse X"), 0) * mouseSensitivity;
     }

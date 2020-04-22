@@ -24,12 +24,16 @@ public class PlayerSetup : NetworkBehaviour{
                 Camera.main.gameObject.SetActive(false);
             }
 
-            _playerUiInstance = Instantiate(playerUIPrefab);
-            _playerUiInstance.name = playerUIPrefab.name;
-
-            PlayerUI ui = _playerUiInstance.GetComponent<PlayerUI>();
-            GetComponent<TankManager>().SetUI(ui);
+            SetupUI();
         }
+    }
+
+    public void SetupUI(){
+        _playerUiInstance = Instantiate(playerUIPrefab);
+        _playerUiInstance.name = playerUIPrefab.name;
+
+        PlayerUI ui = _playerUiInstance.GetComponent<PlayerUI>();
+        GetComponent<TankManager>().SetUI(ui);
     }
 
     public override void OnStartClient(){
