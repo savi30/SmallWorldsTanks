@@ -35,7 +35,7 @@ public class ShellExplosion : NetworkBehaviour{
 
     private void DealDamage(Vector3 position, TankManager tankManager){
         var damage = ComputeDamage(position);
-        tankManager.ApplyDamage(damage);
+        tankManager.TakeDamage(damage);
     }
 
     [Command]

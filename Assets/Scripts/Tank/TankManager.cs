@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Networking;
 using Random = System.Random;
 
@@ -18,6 +19,14 @@ public class TankManager : NetworkBehaviour{
         protected set{ _isDead = value; }
     }
 
+    private void Update(){
+        if (!isLocalPlayer)
+            return;
+        if (Input.GetKeyDown(KeyCode.K)){
+            TakeDamage(1000f);
+        }
+    }
+
     private void Awake(){
         _movement = gameObject.GetComponent<TankMovement>();
         _shooting = gameObject.GetComponent<TankShooting>();
@@ -28,6 +37,11 @@ public class TankManager : NetworkBehaviour{
     private void Setup(){
         isDead = false;
         currentHealth = maxHealth;
+        if (_playerUi != null){
+            _playerUi.SetFill(currentHealth / 100);
+        }
+
+        EnableControl();
         AssignMaterial();
     }
 
@@ -41,15 +55,15 @@ public class TankManager : NetworkBehaviour{
         }
     }
 
-    public void ApplyDamage(float damage){
+    public void TakeDamage(float damage){
         if (!isServer) return;
         if (isDead) return;
         currentHealth -= damage;
-        Rpc_ApplyDamage();
+        Rpc_TakeDamage();
     }
 
     [ClientRpc]
-    private void Rpc_ApplyDamage(){
+    private void Rpc_TakeDamage(){
         if (currentHealth <= 0){
             Die();
         }
@@ -65,6 +79,17 @@ public class TankManager : NetworkBehaviour{
     private void Die(){
         isDead = true;
         DisableControl();
+
+        StartCoroutine(Respawn());
+    }
+
+    private IEnumerator Respawn(){
+        yield return new WaitForSeconds(3f);
+
+        Setup();
+        Transform _spawnPoint = NetworkManager.singleton.GetStartPosition();
+        transform.position = _spawnPoint.position;
+        transform.rotation = _spawnPoint.rotation;
     }
 
     private void DisableControl(){
@@ -73,7 +98,7 @@ public class TankManager : NetworkBehaviour{
         _shooting.enabled = false;
     }
 
-    public void EnableControl(){
+    private void EnableControl(){
         _movement.enabled = true;
         _shooting.enabled = true;
     }
