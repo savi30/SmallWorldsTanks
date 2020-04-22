@@ -18,7 +18,6 @@ public class ShellExplosion : NetworkBehaviour{
         var colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (var col in colliders){
             if (!col.CompareTag(PlayerTag)) continue;
-            Debug.Log(col.gameObject.name);
             var target = col.GetComponent<Rigidbody>();
             if (!target)
                 continue;

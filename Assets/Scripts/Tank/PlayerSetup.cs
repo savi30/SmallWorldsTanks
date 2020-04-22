@@ -41,8 +41,8 @@ public class PlayerSetup : NetworkBehaviour{
         _netId = GetComponent<NetworkIdentity>().netId.ToString();
         var tankManager = GetComponent<TankManager>();
         GameManager.RegisterPlayer(_netId, tankManager);
-        Debug.Log("registering " + _netId);
-        tankManager.instance.transform.name = _netId.ToString();
+        tankManager.username = PayerTag + _netId;
+        tankManager.instance.transform.name = PayerTag + _netId;
     }
 
     public void OnDisable(){

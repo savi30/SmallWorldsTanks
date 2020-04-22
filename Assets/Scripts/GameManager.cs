@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour{
@@ -14,6 +15,10 @@ public class GameManager : MonoBehaviour{
     }
 
     public MatchSettings matchSettings;
+
+    public static TankManager[] getAllPlayers(){
+        return _tanks.Values.ToArray();
+    }
 
     #region PlayerTracking
 

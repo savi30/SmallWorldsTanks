@@ -8,6 +8,8 @@ public class TankManager : NetworkBehaviour{
     private TankMovement _movement;
     private TankShooting _shooting;
     private PlayerUI _playerUi;
+    [SyncVar] public int deaths = 0;
+    [SyncVar] public string username = "default";
 
     [SyncVar] public float currentHealth;
     public float maxHealth = 100f;
@@ -88,6 +90,7 @@ public class TankManager : NetworkBehaviour{
 
     private void Die(){
         isDead = true;
+        deaths += 1;
         DisableControl();
 
         StartCoroutine(Respawn());
