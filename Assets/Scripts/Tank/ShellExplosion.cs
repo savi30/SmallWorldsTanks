@@ -34,10 +34,8 @@ public class ShellExplosion : NetworkBehaviour{
     }
 
     private void DealDamage(Vector3 position, TankManager tankManager){
-        if (!isServer)
-            return;
         var damage = ComputeDamage(position);
-        tankManager.Rpc_ApplyDamage(damage);
+        tankManager.ApplyDamage(damage);
     }
 
     [Command]

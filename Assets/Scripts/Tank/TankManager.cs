@@ -41,11 +41,15 @@ public class TankManager : NetworkBehaviour{
         }
     }
 
-    [ClientRpc]
-    public void Rpc_ApplyDamage(float damage){
-        if (isDead)
-            return;
+    public void ApplyDamage(float damage){
+        if (!isServer) return;
+        if (isDead) return;
         currentHealth -= damage;
+        Rpc_ApplyDamage();
+    }
+
+    [ClientRpc]
+    private void Rpc_ApplyDamage(){
         if (currentHealth <= 0){
             Die();
         }
