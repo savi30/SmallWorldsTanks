@@ -8,6 +8,7 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="GameManager.cs" t="Include" />
+          <e p="MatchSettings.cs" t="Include" />
           <e p="Planet" t="Include">
             <e p="FauxGravityAttractor.cs" t="Include" />
             <e p="FauxGravityBody.cs" t="Include" />

@@ -35,6 +35,16 @@ public class TankManager : NetworkBehaviour{
     }
 
     private void Setup(){
+        CmdSetup();
+    }
+
+    [Command]
+    private void CmdSetup(){
+        RpcSetupPlayerOnAllClients();
+    }
+
+    [ClientRpc]
+    private void RpcSetupPlayerOnAllClients(){
         isDead = false;
         currentHealth = maxHealth;
         if (_playerUi != null){
@@ -84,7 +94,7 @@ public class TankManager : NetworkBehaviour{
     }
 
     private IEnumerator Respawn(){
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(GameManager.instance.matchSettings.respawnTime);
 
         Setup();
         Transform _spawnPoint = NetworkManager.singleton.GetStartPosition();
@@ -99,6 +109,7 @@ public class TankManager : NetworkBehaviour{
     }
 
     private void EnableControl(){
+        if (!isLocalPlayer) return;
         _movement.enabled = true;
         _shooting.enabled = true;
     }
